@@ -12,9 +12,9 @@ Listen to the spoken English word, identify the matching picture, and pop the fl
 - 🎈 **Phaser 2D Balloon Physics**: Smooth balloon bobbing animations, particle explosions, confetti, and satisfying pop interactions powered by Phaser.
 - 🔊 **Zero-Asset Web Audio SFX**: Custom programmatic sound effects (correct chimes, buzzers, countdown ticks, celebration melodies) synthesized via the Web Audio API without external audio dependencies.
 - 🎯 **3 Difficulty Tiers**:
-  - **Easy** (90s): Foundational 3-letter & short vocabulary words (*cat, dog, sun, star, frog, etc.*).
-  - **Medium** (90s): Common everyday items and food (*apple, banana, rocket, guitar, rabbit, etc.*).
-  - **Hard** (75s): Multi-syllable and descriptive words (*elephant, dinosaur, telescope, helicopter, etc.*).
+  - **Easy** (90s): Foundational 3-letter & short vocabulary words (_cat, dog, sun, star, frog, etc._).
+  - **Medium** (90s): Common everyday items and food (_apple, banana, rocket, guitar, rabbit, etc._).
+  - **Hard** (75s): Multi-syllable and descriptive words (_elephant, dinosaur, telescope, helicopter, etc._).
 - 🔥 **Streak & Combo Multiplier**: Encourages accuracy with increasing bonus points for consecutive correct pops.
 - 📊 **Post-Round Review**: Displays total score, accuracy, streak records, and a list of missed words to reinforce learning.
 - 📱 **Responsive & Accessible**: Works seamlessly on desktop, tablet, and mobile touchscreens with automatic canvas scaling.
@@ -38,17 +38,20 @@ Listen to the spoken English word, identify the matching picture, and pop the fl
 ### Prerequisites
 
 Ensure you have one of the following package managers installed:
+
 - [Node.js](https://nodejs.org/) (v18+) with `npm` / `pnpm` / `yarn`
 - or [Bun](https://bun.sh/)
 
 ### Installation
 
 1. Clone or navigate to the project directory:
+
    ```bash
    cd c:\ESL_Mini_Games\wordpop
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    # or
@@ -56,6 +59,7 @@ Ensure you have one of the following package managers installed:
    ```
 
 3. Start the development server:
+
    ```bash
    npm run dev
    # or
@@ -68,13 +72,13 @@ Ensure you have one of the following package managers installed:
 
 ## 📜 Available Scripts
 
-| Command | Description |
-| :--- | :--- |
-| `npm run dev` | Runs the app in development mode with HMR |
-| `npm run build` | Compiles and builds the production bundle |
-| `npm run preview` | Previews the production build locally |
-| `npm run lint` | Runs ESLint to check for code quality and syntax issues |
-| `npm run format` | Formats all code files using Prettier |
+| Command           | Description                                             |
+| :---------------- | :------------------------------------------------------ |
+| `npm run dev`     | Runs the app in development mode with HMR               |
+| `npm run build`   | Compiles and builds the production bundle               |
+| `npm run preview` | Previews the production build locally                   |
+| `npm run lint`    | Runs ESLint to check for code quality and syntax issues |
+| `npm run format`  | Formats all code files using Prettier                   |
 
 ---
 

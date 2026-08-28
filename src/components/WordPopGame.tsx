@@ -34,16 +34,13 @@ export function WordPopGame() {
 
   phaseRef.current = phase;
 
-  const nextRound = useCallback(
-    (diff: Difficulty, avoid?: string) => {
-      const r = makeRound(diff, avoid);
-      roundRef.current = r;
-      setRound(r);
-      sceneRef.current?.startRound(r);
-      window.setTimeout(() => speak(r.target.word), 350);
-    },
-    [],
-  );
+  const nextRound = useCallback((diff: Difficulty, avoid?: string) => {
+    const r = makeRound(diff, avoid);
+    roundRef.current = r;
+    setRound(r);
+    sceneRef.current?.startRound(r);
+    window.setTimeout(() => speak(r.target.word), 350);
+  }, []);
 
   const handleAnswer = useCallback(
     (payload: { correct: boolean; word: string }) => {
@@ -59,7 +56,11 @@ export function WordPopGame() {
           setScore((sc) => sc + 10 + Math.min(next - 1, 5) * 2);
           setPops((p) => [
             ...p,
-            { id: Date.now(), text: next > 1 ? `+${10 + Math.min(next - 1, 5) * 2} · ${next}x` : "+10", good: true },
+            {
+              id: Date.now(),
+              text: next > 1 ? `+${10 + Math.min(next - 1, 5) * 2} · ${next}x` : "+10",
+              good: true,
+            },
           ]);
           return next;
         });
@@ -157,33 +158,33 @@ export function WordPopGame() {
   const totalTime = ROUND_SECONDS[difficulty];
 
   return (
-    <div className="relative mx-auto w-full max-w-5xl px-4 pb-10">
-      <div className="rounded-4xl border-4 border-card bg-card/80 p-3 shadow-[0_20px_0_-4px_var(--shadow-chunky)] sm:p-5">
+    <div className="relative mx-auto w-full max-w-5xl px-2 sm:px-4 pb-4 sm:pb-10">
+      <div className="rounded-3xl sm:rounded-4xl border-4 border-card bg-card/80 p-2 sm:p-3 md:p-5 shadow-[0_10px_0_-4px_var(--shadow-chunky)] sm:shadow-[0_20px_0_-4px_var(--shadow-chunky)]">
         {/* HUD */}
-        <div className="mb-3 flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2 rounded-full bg-secondary px-4 py-2 font-display text-lg text-secondary-foreground">
+        <div className="mb-2 sm:mb-3 flex flex-wrap items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-2 rounded-full bg-secondary px-3 sm:px-4 py-1.5 sm:py-2 font-display clamp-hud-text text-secondary-foreground">
             ⭐ <span className="tabular-nums">{score}</span>
           </div>
-          <div className="flex items-center gap-2 rounded-full bg-accent px-4 py-2 font-display text-lg text-accent-foreground">
+          <div className="flex items-center gap-1.5 sm:gap-2 rounded-full bg-accent px-3 sm:px-4 py-1.5 sm:py-2 font-display clamp-hud-text text-accent-foreground">
             🔥 <span className="tabular-nums">{streak}</span>
           </div>
-          <div className="ml-auto flex min-w-[9rem] flex-1 items-center gap-2 sm:flex-none">
-            <span className="font-display text-lg text-foreground">⏱</span>
-            <div className="h-4 flex-1 overflow-hidden rounded-full bg-muted">
+          <div className="ml-auto flex min-w-0 flex-1 items-center gap-1.5 sm:gap-2 sm:flex-none sm:min-w-[9rem]">
+            <span className="font-display clamp-hud-text text-foreground shrink-0">⏱</span>
+            <div className="h-3 sm:h-4 flex-1 overflow-hidden rounded-full bg-muted">
               <motion.div
                 className="h-full rounded-full bg-primary"
                 animate={{ width: `${(timeLeft / totalTime) * 100}%` }}
                 transition={{ ease: "linear", duration: 0.4 }}
               />
             </div>
-            <span className="w-8 text-right font-display tabular-nums text-foreground">
+            <span className="w-6 sm:w-8 text-right font-display tabular-nums clamp-hud-text text-foreground shrink-0">
               {timeLeft}
             </span>
           </div>
         </div>
 
         {/* Prompt */}
-        <div className="mb-3 flex items-center justify-center gap-3">
+        <div className="mb-2 sm:mb-3 flex items-center justify-center gap-2 sm:gap-3">
           <AnimatePresence mode="wait">
             <motion.button
               key={round?.target.word ?? "idle"}
@@ -193,7 +194,7 @@ export function WordPopGame() {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 10, opacity: 0 }}
               transition={{ type: "spring", stiffness: 320, damping: 18 }}
-              className="flex items-center gap-3 rounded-full bg-primary px-6 py-3 font-display text-2xl text-primary-foreground shadow-[0_6px_0_0_var(--shadow-chunky)] transition-transform active:translate-y-1 active:shadow-none sm:text-3xl"
+              className="flex items-center gap-2 sm:gap-3 rounded-full bg-primary px-4 sm:px-6 py-2.5 sm:py-3 font-display clamp-word-btn text-primary-foreground shadow-[0_4px_0_0_var(--shadow-chunky)] sm:shadow-[0_6px_0_0_var(--shadow-chunky)] transition-transform active:translate-y-1 active:shadow-none"
             >
               <span aria-hidden>🔊</span>
               {phase === "playing" && round ? round.target.word : "Word Pop"}
@@ -202,7 +203,7 @@ export function WordPopGame() {
         </div>
 
         {/* Canvas */}
-        <div className="relative overflow-hidden rounded-3xl bg-[image:var(--gradient-sky)]">
+        <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-[image:var(--gradient-sky)]">
           <div ref={hostRef} className="flex aspect-[9/6.2] w-full items-center justify-center" />
 
           <AnimatePresence>
@@ -212,14 +213,14 @@ export function WordPopGame() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className={`pointer-events-none absolute inset-0 rounded-3xl ${
+                className={`pointer-events-none absolute inset-0 rounded-2xl sm:rounded-3xl ${
                   flash === "correct" ? "bg-success/25" : "bg-destructive/20"
                 }`}
               />
             )}
           </AnimatePresence>
 
-          <div className="pointer-events-none absolute inset-x-0 top-6 flex flex-col items-center gap-2">
+          <div className="pointer-events-none absolute inset-x-0 top-3 sm:top-6 flex flex-col items-center gap-1 sm:gap-2">
             <AnimatePresence>
               {pops.map((p) => (
                 <motion.div
@@ -227,7 +228,7 @@ export function WordPopGame() {
                   initial={{ y: 20, opacity: 0, scale: 0.7 }}
                   animate={{ y: -10, opacity: 1, scale: 1 }}
                   exit={{ y: -40, opacity: 0 }}
-                  className={`rounded-full px-5 py-2 font-display text-xl ${
+                  className={`rounded-full px-3 sm:px-5 py-1 sm:py-2 font-display clamp-pop-text ${
                     p.good
                       ? "bg-success text-success-foreground"
                       : "bg-accent text-accent-foreground"
@@ -247,33 +248,33 @@ export function WordPopGame() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, scale: 1.05 }}
-                className="absolute inset-0 flex flex-col items-center justify-center gap-5 bg-[image:var(--gradient-sky)] px-6 text-center"
+                className="absolute inset-0 flex flex-col items-center justify-center gap-3 sm:gap-5 bg-[image:var(--gradient-sky)] px-3 sm:px-6 py-4 sm:py-6 text-center overflow-y-auto"
               >
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ repeat: Infinity, duration: 2.6, ease: "easeInOut" }}
-                  className="text-6xl"
+                  className="clamp-emoji-lg"
                 >
                   🎈
                 </motion.div>
-                <h2 className="font-display text-4xl text-foreground sm:text-5xl">Word Pop!</h2>
-                <p className="max-w-md font-body text-lg text-foreground/80">
+                <h2 className="font-display clamp-h2 text-foreground">Word Pop!</h2>
+                <p className="max-w-sm font-body clamp-body text-foreground/80">
                   Listen to the word, then pop the balloon with the matching picture.
                 </p>
-                <div className="flex flex-wrap items-center justify-center gap-3">
+                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
                   {(["easy", "medium", "hard"] as Difficulty[]).map((d) => (
                     <motion.button
                       key={d}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => startGame(d)}
-                      className="rounded-full bg-primary px-6 py-3 font-display text-lg text-primary-foreground shadow-[0_6px_0_0_var(--shadow-chunky)]"
+                      className="rounded-full bg-primary px-4 sm:px-6 py-2 sm:py-3 font-display clamp-btn-text text-primary-foreground shadow-[0_4px_0_0_var(--shadow-chunky)] sm:shadow-[0_6px_0_0_var(--shadow-chunky)]"
                     >
                       {d === "easy" ? "🐣" : d === "medium" ? "🐬" : "🦁"} {d}
                     </motion.button>
                   ))}
                 </div>
-                <p className="font-body text-sm text-foreground/60">
+                <p className="font-body text-xs sm:text-sm text-foreground/60">
                   {DIFFICULTY_LABEL[difficulty]}
                 </p>
               </motion.div>
@@ -285,33 +286,37 @@ export function WordPopGame() {
                 initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[image:var(--gradient-sky)] px-6 text-center"
+                className="absolute inset-0 flex flex-col items-center justify-center gap-3 sm:gap-4 bg-[image:var(--gradient-sky)] px-3 sm:px-6 py-4 sm:py-6 text-center overflow-y-auto"
               >
                 <motion.div
                   initial={{ rotate: -12, scale: 0.6 }}
                   animate={{ rotate: 0, scale: 1 }}
                   transition={{ type: "spring", stiffness: 260, damping: 12 }}
-                  className="text-6xl"
+                  className="clamp-emoji-lg"
                 >
                   🎉
                 </motion.div>
-                <h2 className="font-display text-4xl text-foreground">Great job!</h2>
-                <p className="font-body text-lg text-foreground/80">
+                <h2 className="font-display clamp-h2 text-foreground">Great job!</h2>
+                <p className="font-body clamp-body text-foreground/80">
                   You popped <strong>{correctCount}</strong> words and scored{" "}
                   <strong>{score}</strong> points.
                 </p>
                 {best > 0 && (
-                  <p className="font-body text-sm text-foreground/60">Best score: {best}</p>
+                  <p className="font-body text-xs sm:text-sm text-foreground/60">
+                    Best score: {best}
+                  </p>
                 )}
                 {missed.length > 0 && (
-                  <div className="max-w-md">
-                    <p className="font-body text-sm text-foreground/70">Words to practise:</p>
-                    <div className="mt-2 flex flex-wrap justify-center gap-2">
+                  <div className="max-w-sm w-full">
+                    <p className="font-body text-xs sm:text-sm text-foreground/70">
+                      Words to practise:
+                    </p>
+                    <div className="mt-2 flex flex-wrap justify-center gap-1.5 sm:gap-2">
                       {missed.map((w) => (
                         <button
                           key={w}
                           onClick={() => speak(w)}
-                          className="rounded-full bg-accent px-4 py-1.5 font-display text-base text-accent-foreground"
+                          className="rounded-full bg-accent px-3 sm:px-4 py-1 sm:py-1.5 font-display text-sm sm:text-base text-accent-foreground"
                         >
                           🔊 {w}
                         </button>
@@ -319,12 +324,12 @@ export function WordPopGame() {
                     </div>
                   </div>
                 )}
-                <div className="mt-2 flex flex-wrap justify-center gap-3">
+                <div className="mt-1 sm:mt-2 flex flex-wrap justify-center gap-2 sm:gap-3">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => startGame(difficulty)}
-                    className="rounded-full bg-primary px-6 py-3 font-display text-lg text-primary-foreground shadow-[0_6px_0_0_var(--shadow-chunky)]"
+                    className="rounded-full bg-primary px-4 sm:px-6 py-2 sm:py-3 font-display clamp-btn-text text-primary-foreground shadow-[0_4px_0_0_var(--shadow-chunky)] sm:shadow-[0_6px_0_0_var(--shadow-chunky)]"
                   >
                     Play again
                   </motion.button>
@@ -332,7 +337,7 @@ export function WordPopGame() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setPhase("start")}
-                    className="rounded-full bg-secondary px-6 py-3 font-display text-lg text-secondary-foreground shadow-[0_6px_0_0_var(--shadow-chunky)]"
+                    className="rounded-full bg-secondary px-4 sm:px-6 py-2 sm:py-3 font-display clamp-btn-text text-secondary-foreground shadow-[0_4px_0_0_var(--shadow-chunky)] sm:shadow-[0_6px_0_0_var(--shadow-chunky)]"
                   >
                     Change level
                   </motion.button>

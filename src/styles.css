@@ -95,11 +95,7 @@
     oklch(0.95 0.06 200) 55%,
     oklch(0.92 0.11 145) 100%
   );
-  --gradient-page: linear-gradient(
-    180deg,
-    oklch(0.95 0.06 235) 0%,
-    oklch(0.97 0.05 95) 100%
-  );
+  --gradient-page: linear-gradient(180deg, oklch(0.95 0.06 235) 0%, oklch(0.97 0.05 95) 100%);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -153,17 +149,77 @@
 @layer base {
   * {
     border-color: var(--color-border);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    height: 100%;
   }
 
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-body);
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
   }
 
   h1,
   h2,
   h3 {
     font-family: var(--font-display);
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+@layer utilities {
+  .clamp-title {
+    font-size: clamp(1.5rem, 7vw, 2.5rem);
+    line-height: 1.1;
+  }
+
+  .clamp-subtitle {
+    font-size: clamp(0.875rem, 4vw, 1.125rem);
+    line-height: 1.5;
+  }
+
+  .clamp-h2 {
+    font-size: clamp(1.75rem, 9vw, 3.125rem);
+    line-height: 1.1;
+  }
+
+  .clamp-body {
+    font-size: clamp(0.875rem, 4.2vw, 1.125rem);
+    line-height: 1.5;
+  }
+
+  .clamp-word-btn {
+    font-size: clamp(1.125rem, 6vw, 1.875rem);
+  }
+
+  .clamp-hud-text {
+    font-size: clamp(0.875rem, 4.2vw, 1.125rem);
+  }
+
+  .clamp-btn-text {
+    font-size: clamp(0.875rem, 4.2vw, 1.125rem);
+  }
+
+  .clamp-emoji-lg {
+    font-size: clamp(3rem, 16vw, 5rem);
+    line-height: 1;
+  }
+
+  .clamp-pop-text {
+    font-size: clamp(0.875rem, 4.5vw, 1.25rem);
   }
 }

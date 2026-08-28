@@ -26,12 +26,12 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="min-h-screen bg-[image:var(--gradient-page)] py-6">
-      <header className="mx-auto mb-4 max-w-5xl px-4 text-center">
-        <h1 className="font-display text-3xl text-foreground sm:text-4xl">
+    <main className="min-h-screen min-h-dvh bg-[image:var(--gradient-page)] py-3 sm:py-6">
+      <header className="mx-auto mb-2 sm:mb-4 max-w-5xl px-2 sm:px-4 text-center">
+        <h1 className="font-display clamp-title text-foreground">
           🎈 Word Pop <span className="text-primary">ESL</span>
         </h1>
-        <p className="font-body text-base text-foreground/70">
+        <p className="font-body clamp-subtitle text-foreground/70 mt-1">
           Listen, look, and pop the right picture!
         </p>
       </header>
