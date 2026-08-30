@@ -34,13 +34,16 @@ export function WordPopGame() {
 
   phaseRef.current = phase;
 
-  const nextRound = useCallback((diff: Difficulty, avoid?: string) => {
-    const r = makeRound(diff, avoid);
-    roundRef.current = r;
-    setRound(r);
-    sceneRef.current?.startRound(r);
-    window.setTimeout(() => speak(r.target.word), 350);
-  }, []);
+  const nextRound = useCallback(
+    (diff: Difficulty, avoid?: string) => {
+      const r = makeRound(diff, avoid);
+      roundRef.current = r;
+      setRound(r);
+      sceneRef.current?.startRound(r);
+      window.setTimeout(() => speak(r.target.word), 350);
+    },
+    [],
+  );
 
   const handleAnswer = useCallback(
     (payload: { correct: boolean; word: string }) => {
@@ -56,11 +59,7 @@ export function WordPopGame() {
           setScore((sc) => sc + 10 + Math.min(next - 1, 5) * 2);
           setPops((p) => [
             ...p,
-            {
-              id: Date.now(),
-              text: next > 1 ? `+${10 + Math.min(next - 1, 5) * 2} · ${next}x` : "+10",
-              good: true,
-            },
+            { id: Date.now(), text: next > 1 ? `+${10 + Math.min(next - 1, 5) * 2} · ${next}x` : "+10", good: true },
           ]);
           return next;
         });
@@ -302,15 +301,11 @@ export function WordPopGame() {
                   <strong>{score}</strong> points.
                 </p>
                 {best > 0 && (
-                  <p className="font-body text-xs sm:text-sm text-foreground/60">
-                    Best score: {best}
-                  </p>
+                  <p className="font-body text-xs sm:text-sm text-foreground/60">Best score: {best}</p>
                 )}
                 {missed.length > 0 && (
                   <div className="max-w-sm w-full">
-                    <p className="font-body text-xs sm:text-sm text-foreground/70">
-                      Words to practise:
-                    </p>
+                    <p className="font-body text-xs sm:text-sm text-foreground/70">Words to practise:</p>
                     <div className="mt-2 flex flex-wrap justify-center gap-1.5 sm:gap-2">
                       {missed.map((w) => (
                         <button
