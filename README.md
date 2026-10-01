@@ -17,7 +17,7 @@ A vibrant, fast-paced ESL (English as a Second Language) listening and vocabular
 
 ---
 
-## Features
+Features
 
 - **Interactive Audio & Speech Synthesis** - Uses the Web Speech API to clearly pronounce vocabulary words with child-friendly pitch and pacing
 - **Phaser 2D Balloon Physics** - Smooth balloon bobbing animations, particle explosions, confetti, and satisfying pop interactions
@@ -29,7 +29,7 @@ A vibrant, fast-paced ESL (English as a Second Language) listening and vocabular
 
 ---
 
-## Built With
+Built With
 
 - **React 19** - UI component library
 - **TypeScript** - Type-safe programming language
